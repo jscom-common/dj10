@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block con %}
+
+    <div class="container mt-5 mb-4">
+        <h1><b>번역해ZOOM</b></h1>
+        <form>
+            <div class="row mt-5">
+                <div class="col-sm-5">
+                    <textarea class="form-control" style="height:200px;" name="inp">{{inp}}</textarea>
+                </div>
+                <div class="col-sm-2 text-center" style="margin: auto;">
+                    <select class="form-select" name="sel1">
+                        {% for k,v in b.items %}
+                            <option value="{{k}}" {% if sel1 == k %} selected {% elif k == 'ko' and sel1 == '' %} selected {% endif %}>{{v|upper}}</option>
+                        {% endfor %}         
+                    </select>
+                    <button class="btn btn-dark mt-3" style="width:100%">번역</button>
+                    <a href="{% url 'trans:index' %}?inp={{res}}&sel1={{sel2}}&sel2={{sel1}}&name={{name}}" class="btn btn-secondary mt-3" style="width:100%">체인지</a>
+                    <select class="form-select mt-3" name="sel2">
+                        {% for k,v in b.items %}
+                            <option value="{{k}}" {%if sel2 == k %} selected {% elif k == 'en' and sel2 == '' %} selected {% endif %}>{{v|upper}}</option>
+                        {% endfor %}     
+                    </select>
+                </div>
+                <div class="col-sm-5">
+                    <textarea class="form-control" style="height:200px;" disabled>{{res}}</textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+{% endblock %}
+

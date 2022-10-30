@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block con %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="container mt-5 mb-5">
+            <h1>게시글 생성</h1>
+            
+            <input name="subject" class="form-control mt-5" placeholder="INPUT SUBJECT">
+            <input value="{{ user }}" class="form-control mt-4 mb-4" disabled>
+            <textarea name="content" class="form-control" style="height: 250px;" placeholder="INPUT CONTENT"></textarea>
+
+            <div class="text-end mt-4">
+                <button class="btn btn-dark">CREATE</button>
+            </div>
+        </div>
+    </form>
+    
+
+{% endblock %}

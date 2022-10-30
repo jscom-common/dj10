@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block con %}
+
+    <div class="container mt-5 mb-4">
+        <h1><b>{{ b.subject }}</b></h1>
+
+        <div class="row mt-5">
+            <div class="col-sm-9">
+                <textarea class="form-control" style="height: 400px;" disabled>
+                    {{ b.content }}
+                </textarea>
+            </div>
+            <div class="col-sm-3" style="margin: auto;">
+                <img src="{{ b.writer.getpic }}" width="100%">
+                <div class="text-center mt-3">
+                    <h4>written by <b>{{ b.writer }}</b></h4>
+                </div>
+                <div class="text-end mt-2">
+                    {{ b.pubdate | date:'Y.m.d / h:i A' }}
+                </div>
+            </div>
+        </div>
+
+        <div class="text-end mt-4">
+            <a href="{% url 'board:index' %}" class="btn btn-dark">HOME</a>
+            {% if user in b.likey.all %}
+                <a href="{% url 'board:cancel' b.id %}" class="btn btn-danger">CANCEL</a>
+            {% else %}
+                <a href="{% url 'board:likey' b.id %}" class="btn btn-primary">LIKEY</a>
+            {% endif %}
+
+            {% if b.writer == user %}
+                <a href="{% url 'board:modify' b.id %}" class="btn btn-secondary">MOD</a>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    DEL
+                </button>
+            {% endif %}
+        </div>
+    </div>
+
+
+
+    <!-- 삭제모달창 -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">게시글 삭제 알림창</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    정말 삭제하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
+                    <a href="{% url 'board:delete' b.id %}" class="btn btn-danger">DELETE</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
